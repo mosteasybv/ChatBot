@@ -1,0 +1,32 @@
+# Start WorkEasy samen met de A2A-agentservice:
+#   docker compose -f docker-compose.yaml -f a2a-agents/docker-compose.yaml up -d
+#
+# Vul vooraf in (bijv. in .env):
+#   A2A_AGENTS_API_KEY   gedeelde sleutel tussen WorkEasy en de agentservice (zelf verzinnen, lang en willekeurig)
+#   A2A_OPENWEBUI_API_KEY API-sleutel van een WorkEasy-gebruiker (Instellingen → Account → API-sleutels)
+services:
+  a2a-agents:
+    build:
+      context: ./a2a-agents
+    container_name: a2a-agents
+    volumes:
+      - a2a-agents:/app/data
+    environment:
+      - 'A2A__OpenWebUiBaseUrl=http://open-webui:8080'
+      - 'A2A__OpenWebUiApiKey=${A2A_OPENWEBUI_API_KEY-}'
+      - 'A2A__ApiKey=${A2A_AGENTS_API_KEY-}'
+      - 'A2A__PublicBaseUrl=${A2A_PUBLIC_BASE_URL-}'
+      # Alleen nodig voor agents met een directe provider als bron:
+      - 'OPENAI_API_KEY=${OPENAI_API_KEY-}'
+      - 'ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY-}'
+    ports:
+      - ${A2A_AGENTS_PORT-8090}:8080
+    restart: unless-stopped
+
+  open-webui:
+    environment:
+      - 'A2A_AGENTS_BASE_URL=http://a2a-agents:8080'
+      - 'A2A_AGENTS_API_KEY=${A2A_AGENTS_API_KEY-}'
+
+volumes:
+  a2a-agents: {}

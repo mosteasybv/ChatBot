@@ -41,6 +41,12 @@ Onderstaande tabel geeft een overzicht van de huidige en geplande apps in de App
 
 ![image](https://github.com/user-attachments/assets/04da966a-05c2-4a95-ad8c-f0de95dcb60c)
 
+## A2A-agents (LlmTornado)
+
+Via **Werkruimte → Agents** maak je agents op basis van een GPT uit de werkruimte (met dezelfde kennis, tools, webzoeken en instellingen) die **onderling met elkaar overleggen** via het A2A-protocol (Agent2Agent). De agents draaien in een aparte .NET-service op basis van [LlmTornado](https://github.com/lofcz/LlmTornado). Zie [a2a-agents/README.md](a2a-agents/README.md) voor installatie en configuratie.
+
+---
+
 ## Implementatie 
 
 GovChat-NL wordt geleverd in twee vormen: 

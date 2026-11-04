@@ -22,7 +22,10 @@
 
 	onMount(async () => {
 		if ($user?.role !== 'admin') {
-			if ($page.url.pathname.includes('/models') && !$user?.permissions?.workspace?.models) {
+			if (
+				($page.url.pathname.includes('/models') || $page.url.pathname.includes('/agents')) &&
+				!$user?.permissions?.workspace?.models
+			) {
 				goto('/');
 			} else if (
 				$page.url.pathname.includes('/knowledge') &&
@@ -84,6 +87,17 @@
 									? ''
 									: 'text-gray-300 dark:text-gray-600 hover:text-gray-700 dark:hover:text-white'} transition"
 								href="/workspace/models">{$i18n.t('Models')}</a
+							>
+						{/if}
+
+						{#if $user?.role === 'admin' || $user?.permissions?.workspace?.models}
+							<a
+								class="min-w-fit rounded-full p-1.5 {$page.url.pathname.includes(
+									'/workspace/agents'
+								)
+									? ''
+									: 'text-gray-300 dark:text-gray-600 hover:text-gray-700 dark:hover:text-white'} transition"
+								href="/workspace/agents">{$i18n.t('Agents')}</a
 							>
 						{/if}
 

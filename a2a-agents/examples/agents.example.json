@@ -1,0 +1,48 @@
+[
+  {
+    "id": "intake",
+    "name": "Intake",
+    "description": "Eerste aanspreekpunt. Begrijpt de vraag van de inwoner of medewerker en schakelt de juiste specialist in.",
+    "enabled": true,
+    "source": { "type": "Workspace", "model": "gpt-4o" },
+    "systemPrompt": "Je bent de intake-agent. Bepaal welke expertise nodig is, raadpleeg de juiste collega's en geef één samenhangend antwoord.",
+    "params": { "temperature": 0.3 },
+    "knowledgeIds": [],
+    "toolIds": [],
+    "features": { "webSearch": false, "imageGeneration": false, "codeInterpreter": false },
+    "a2a": { "peers": ["jurist", "communicatie"], "remoteAgents": [], "expose": true, "maxDelegationDepth": 2, "skills": [] }
+  },
+  {
+    "id": "jurist",
+    "name": "Juridisch adviseur",
+    "description": "Beantwoordt vragen over wet- en regelgeving, zoals de Omgevingswet, Awb en subsidieregels.",
+    "enabled": true,
+    "source": { "type": "Workspace", "model": "juridisch-gpt" },
+    "systemPrompt": "Noem altijd de wettelijke grondslag.",
+    "params": { "temperature": 0.1 },
+    "knowledgeIds": [],
+    "toolIds": [],
+    "features": { "webSearch": true, "imageGeneration": false, "codeInterpreter": false },
+    "a2a": {
+      "peers": [],
+      "remoteAgents": [],
+      "expose": true,
+      "skills": [
+        { "id": "omgevingswet", "name": "Omgevingswet", "description": "Vergunningsplicht en procedures", "examples": ["Heb ik een vergunning nodig voor een dakkapel?"], "tags": ["juridisch"] }
+      ]
+    }
+  },
+  {
+    "id": "communicatie",
+    "name": "Communicatieadviseur",
+    "description": "Herschrijft teksten naar helder Nederlands op B1-niveau.",
+    "enabled": true,
+    "source": { "type": "Workspace", "model": "b1-gpt" },
+    "systemPrompt": "Schrijf op B1-niveau, kort en vriendelijk.",
+    "params": {},
+    "knowledgeIds": [],
+    "toolIds": [],
+    "features": { "webSearch": false, "imageGeneration": false, "codeInterpreter": false },
+    "a2a": { "peers": ["jurist"], "remoteAgents": [], "expose": true, "skills": [] }
+  }
+]

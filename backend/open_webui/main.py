@@ -53,6 +53,7 @@ from open_webui.socket.main import (
     periodic_usage_pool_cleanup,
 )
 from open_webui.routers import (
+    a2a,
     audio,
     images,
     ollama,
@@ -890,6 +891,7 @@ app.include_router(channels.router, prefix="/api/v1/channels", tags=["channels"]
 app.include_router(chats.router, prefix="/api/v1/chats", tags=["chats"])
 
 app.include_router(models.router, prefix="/api/v1/models", tags=["models"])
+app.include_router(a2a.router, prefix="/api/v1/a2a", tags=["a2a"])
 app.include_router(knowledge.router, prefix="/api/v1/knowledge", tags=["knowledge"])
 app.include_router(prompts.router, prefix="/api/v1/prompts", tags=["prompts"])
 app.include_router(tools.router, prefix="/api/v1/tools", tags=["tools"])

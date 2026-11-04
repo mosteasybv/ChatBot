@@ -397,6 +397,18 @@ else:
     except Exception:
         AIOHTTP_CLIENT_TIMEOUT = 300
 
+####################################
+# A2A-agents (LlmTornado-service, zie map a2a-agents)
+####################################
+
+A2A_AGENTS_BASE_URL = os.environ.get("A2A_AGENTS_BASE_URL", "")
+A2A_AGENTS_API_KEY = os.environ.get("A2A_AGENTS_API_KEY", "")
+
+try:
+    A2A_AGENTS_TIMEOUT = int(os.environ.get("A2A_AGENTS_TIMEOUT", "300"))
+except Exception:
+    A2A_AGENTS_TIMEOUT = 300
+
 AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST = os.environ.get(
     "AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST",
     os.environ.get("AIOHTTP_CLIENT_TIMEOUT_OPENAI_MODEL_LIST", ""),
